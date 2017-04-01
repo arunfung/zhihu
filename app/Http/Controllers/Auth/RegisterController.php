@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Notifications\ActivateEmail;
+use App\Services\EmailService;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -28,15 +30,17 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = '/home';
+    protected $emailService;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(EmailService $emailService)
     {
         $this->middleware('guest');
+        $this->emailService =$emailService;
     }
 
     /**
@@ -48,7 +52,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
+            'name' => 'required|max:255|unique:users',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
@@ -62,10 +66,22 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user =  User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'avatar' => '/images/avatars/default.png',
+            'confirmation_token' => str_random(40),
             'password' => bcrypt($data['password']),
         ]);
+        $this->sendVerifyEmailTo($user);
+        return $user;
+    }
+
+    /**
+     * @param $user
+     */
+    private function sendVerifyEmailTo($user)
+    {
+        $user->notify(new ActivateEmail($user));
     }
 }
