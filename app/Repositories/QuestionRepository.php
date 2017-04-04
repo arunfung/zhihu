@@ -42,9 +42,9 @@ class QuestionRepository
      * @param $id
      * @return mixed
      */
-    public function byIdWithTopics($id)
+    public function byIdWithTopicsAndAnswers($id)
     {
-        return $this->question->where('id',$id)->with('topics')->first();
+        return $this->question->where('id',$id)->with(['topics','answers'])->first();
     }
 
 
