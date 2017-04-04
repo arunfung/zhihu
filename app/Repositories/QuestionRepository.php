@@ -62,6 +62,11 @@ class QuestionRepository
         return $this->question->find($id);
     }
 
+    public function getQuestionsFeed()
+    {
+        return $this->question->published()->latest('updated_at')->with('user')->get();
+    }
+
     /**
      * @param array $topics
      * @return array

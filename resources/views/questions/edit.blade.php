@@ -9,12 +9,13 @@
                     <div class="panel-heading">发布问题</div>
 
                     <div class="panel-body">
-                        {!! Form::open(['url'=>'/questions']) !!}
+                        {!! Form::model($question,['method'=>'PATCH','url'=>'/questions/'.$question->id]) !!}
                         <div class="form-group {{ $errors->has('title') ? ' has-error' : '' }}">
                             <label for="title">标题</label>
-                            <input id="title" type="text" name="title" value="{{ old('title') }}"
-                                   class="form-control"
-                                   placeholder="标题" >
+                            {{--<input id="title" type="text" name="title" value="{{ old('title') }}"--}}
+                            {{--class="form-control"--}}
+                            {{--placeholder="标题" >--}}
+                            {{ Form::text('title',old('title'),['id'=>'title','class'=>'form-control','placeholder'=>'标题']) }}
                             @if ($errors->has('title'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('title') }}</strong>
@@ -23,13 +24,16 @@
                         </div>
                         <div class="form-group">
                             <select name="topics[]" class="js-example-placeholder-multiple js-data-example-ajax form-control" multiple="multiple">
+                                @foreach($question->topics as $topic)
+                                    <option value="{{$topic->id}}" selected>{{$topic->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group {{ $errors->has('body') ? ' has-error' : '' }}">
                             <!-- 编辑器容器 -->
                             <label for="title">描述</label>
                             <script id="container" name="body"  type="text/plain" >
-                                {!! old('body') !!}
+                                {!! $question->body !!}
                             </script>
                             @if ($errors->has('body'))
                                 <span class="help-block">
@@ -37,7 +41,7 @@
                                 </span>
                             @endif
                         </div>
-                        <button class="btn btn-success pull-right" type="submit">发布问题</button>
+                        {!! Form::submit('发布问题',['class'=>'btn btn-success pull-right']) !!}
                         {{--</form>--}}
                         {{ Form::close() }}
                     </div>
@@ -45,7 +49,7 @@
             </div>
         </div>
     </div>
-    @section('js')
+@section('js')
     <!-- 实例化编辑器 -->
     <script type="text/javascript">
         var ue = UE.getEditor('container', {
@@ -103,6 +107,6 @@
         });
 
     </script>
-    @endsection
+@endsection
 
 @endsection
