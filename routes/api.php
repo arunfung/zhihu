@@ -46,3 +46,6 @@ Route::post('/question/follow', function (Request $request) {
     $question->increment('followers_count');
     return response()->json(['followed' => true]);
 })->middleware('auth:api');
+
+Route::get('/user/followers/{id}','FollowersController@index')->middleware('auth:api');
+Route::post('/user/follow','FollowersController@follow')->middleware('auth:api');
