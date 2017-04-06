@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Notifications\ActivateEmail;
+use App\Notifications\ActivateEmailNotification;
 use App\Services\EmailService;
 use App\User;
 use App\Http\Controllers\Controller;
@@ -103,6 +103,6 @@ class RegisterController extends Controller
      */
     private function sendVerifyEmailTo($user)
     {
-        $user->notify(new ActivateEmail($user));
+        $user->notify(new ActivateEmailNotification($user));
     }
 }
