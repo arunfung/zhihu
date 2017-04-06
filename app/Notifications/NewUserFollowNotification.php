@@ -2,23 +2,24 @@
 
 namespace App\Notifications;
 
+use Auth;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class ResetPassword extends Notification
+class NewUserFollowNotification extends Notification
 {
     use Queueable;
-    public $token;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($token)
+    public function __construct()
     {
-        $this->token = $token;
+        //
     }
 
     /**
@@ -29,7 +30,14 @@ class ResetPassword extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database','mail'];
+    }
+
+    public function toDatabase($notifiable)
+    {
+        return [
+            'name' => Auth::guard('api')->user()->name,
+        ];
     }
 
     /**
@@ -41,12 +49,12 @@ class ResetPassword extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->view('vendor.notifications.activateEmail')
-                    ->subject('知乎密码重置')
-                    ->greeting('您好！')
-                    ->line('您收到这封邮件,是因为您申请了密码重置，请点击"重置密码"按钮进行重置。')
-                    ->action('重置密码', url('password/reset', $this->token))
-                    ->line('如果您没有请求密码重置,请不要进一步的行动！');
+            ->view('vendor.notifications.activateEmail')
+            ->subject('新用户关注提醒')
+            ->greeting('嗨！')
+            ->line(Auth::guard('api')->user()->name.'关注了您，请点击"立即查看"按钮进行查看。')
+            ->action('立即查看', url('password/reset'))
+            ->line('感谢您一直以来对知乎的支持！');
     }
 
     /**
