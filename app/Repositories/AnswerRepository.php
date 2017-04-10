@@ -23,4 +23,9 @@ class AnswerRepository
     {
         return $this->answer->create($attributes);
     }
+
+    public function byId($id)
+    {
+        return $this->answer->find($id);
+    }
 }
