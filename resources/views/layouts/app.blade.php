@@ -24,7 +24,16 @@
             'csrfToken' => csrf_token(),
             'apiToken' => Auth::check() ? 'Bearer '.Auth::user()->api_token : 'Bearer '
         ]); ?>
+
     </script>
+    @if(Auth::check())
+        <script>
+        window.Zhihu = <?php echo json_encode([
+            'name' => Auth::user()->name,
+            'avatar' => Auth::user()->avatar
+        ]); ?>
+            </script>
+    @endif
 </head>
 <body>
     <div id="app">

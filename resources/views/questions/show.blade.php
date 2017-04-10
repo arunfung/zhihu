@@ -15,16 +15,17 @@
                     <div class="panel-body content">
                         {!! $question->body !!}
                     </div>
-                    @if(Auth::check() && Auth::user()->owns($question))
-                        <div class="actions panel-footer">
+                    <div class="actions panel-footer">
+                        @if(Auth::check() && Auth::user()->owns($question))
                             <span class="edit"><a href="/questions/{{$question->id}}/edit">编辑</a></span>
                             {!! Form::open(['method'=>'DELETE','url'=>'/questions/'.$question->id,'class'=>'delete-form']) !!}
                                 <button class="button is-naked delete-button">
                                     删除
                                 </button>
                             {!! Form::close() !!}
-                        </div>
-                    @endif
+                        @endif
+                        <comments type="question" model="{{$question->id}}" count="{{$question->comments()->count()}}"></comments>
+                    </div>
                 </div>
             </div>
             <div class="col-md-3">
@@ -74,6 +75,7 @@
                                     </h4>
                                     {!! $answer ->body !!}
                                 </div>
+                                <comments type="answer" model="{{$answer->id}}" count="{{$answer->comments()->count()}}"></comments>
                             </div>
                         @endforeach
                         @if(Auth::check())
