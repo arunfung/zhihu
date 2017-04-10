@@ -156,14 +156,16 @@
                         </div>
                         @if(Auth::check() && Auth::id() != $question->user_id)
                             <user-follow-button user="{{$question->user_id}}"></user-follow-button>
+                            <send-message user="{{$question->user_id}}"></send-message>
                         @elseif(!Auth::check())
                             <a href="{{url('login')}}" class="btn btn-default">
                                 关注他
                             </a>
+                            <a href="{{url('login')}}" class="btn btn-default pull-right">发送私信</a>
                         @else
                         @endif
 
-                        <a href="#editor" class="btn btn-default pull-right">发送私信</a>
+
                     </div>
                 </div>
             </div>
