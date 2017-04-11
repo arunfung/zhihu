@@ -67,6 +67,12 @@ class QuestionRepository
         return $this->question->published()->latest('updated_at')->with('user')->get();
     }
 
+    public function getQuestionCommentsById($id)
+    {
+        $question = $this->question->with('comments','comments.user')->where('id',$id)->first();
+        return $question->comments;
+    }
+
     /**
      * @param array $topics
      * @return array

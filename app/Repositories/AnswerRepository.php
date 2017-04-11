@@ -28,4 +28,10 @@ class AnswerRepository
     {
         return $this->answer->find($id);
     }
+
+    public function getAnswerCommentsById($id)
+    {
+        $answer = $this->answer->with('comments','comments.user')->where('id',$id)->first();
+        return $answer->comments;
+    }
 }
