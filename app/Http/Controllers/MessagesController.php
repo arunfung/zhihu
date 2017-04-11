@@ -9,7 +9,6 @@ use Auth;
 class MessagesController extends Controller
 {
     protected $message;
-    protected $apiUser;
 
     /**
      * MessagesController constructor.
@@ -18,14 +17,13 @@ class MessagesController extends Controller
     public function __construct(MessageRepository $message)
     {
         $this->message = $message;
-        $this->apiUser = Auth::guard('api')->user();
     }
 
     public function store()
     {
         $message = $this->message->create([
             'to_user_id' => request('user'),
-            'from_user_id' => $this->apiUser->id,
+            'from_user_id' => user('api')->id,
             'body' => request('body')
         ]);
 

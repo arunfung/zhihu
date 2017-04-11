@@ -10,18 +10,16 @@ use Illuminate\Http\Request;
 class FollowersController extends Controller
 {
     protected $userRepository;
-    protected $apiUser;
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
-        $this->apiUser = Auth::guard('api')->user();
     }
 
     public function index($id)
     {
         $user = $this->userRepository->byId($id);
         $followers = $user->followersUser()->pluck('follower_id')->toArray();
-        if (in_array($this->apiUser->id,$followers))
+        if (in_array(user('api')->id,$followers))
         {
             return response()->json(['followed'=> true]);
         }
@@ -32,7 +30,7 @@ class FollowersController extends Controller
     public function follow(Request $request)
     {
         $userToFollow = $this->userRepository->byId(request('user'));
-        $followed = $this->apiUser->followThisUser($userToFollow->id);
+        $followed = user('api')->followThisUser($userToFollow->id);
         if (count($followed['attached'])>0)
         {
             $userToFollow->notify(new NewUserFollowNotification());
