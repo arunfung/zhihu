@@ -20,6 +20,7 @@ class CreateMessagesTable extends Migration
             $table->text('body');
             $table->string('has_read',8)->default('F');
             $table->timestamp('read_at')->nullable();
+            $table->bigInteger('dialog_id')->nullable();
             $table->timestamps();
         });
     }
