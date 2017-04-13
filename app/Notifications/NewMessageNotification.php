@@ -2,24 +2,25 @@
 
 namespace App\Notifications;
 
-use Auth;
+use App\Message;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class NewUserFollowNotification extends Notification
+class NewMessageNotification extends Notification
 {
     use Queueable;
+    protected $message;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Message $message)
     {
-        //
+        $this->message = $message;
     }
 
     /**
@@ -30,13 +31,14 @@ class NewUserFollowNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database','mail'];
+        return ['database'];
     }
 
     public function toDatabase($notifiable)
     {
         return [
-            'name' => user('api')->name,
+            'name' => $this->message->fromUser->name,
+            'dialog' => $this->message->dialog_id,
         ];
     }
 
@@ -49,12 +51,9 @@ class NewUserFollowNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->view('vendor.notifications.activateEmail')
-            ->subject('新用户关注提醒')
-            ->greeting('嗨！')
-            ->line(Auth::guard('api')->user()->name.'关注了您，请点击"立即查看"按钮进行查看。')
-            ->action('立即查看', url('/'))
-            ->line('感谢您一直以来对知乎的支持！');
+                    ->line('The introduction to the notification.')
+                    ->action('Notification Action', 'https://laravel.com')
+                    ->line('Thank you for using our application!');
     }
 
     /**
