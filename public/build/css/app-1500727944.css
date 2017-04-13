@@ -8385,7 +8385,20 @@ a.topic:hover {
   margin-top: 80px;
 }
 
-.unread {
+.media.unread {
+  background: azure;
+}
+
+.notifications {
+  position: relative;
+  padding: 8px 15px 8px 25px;
+  color: #666;
+  border: none;
+  border-top: 1px dotted #eee;
+  background: transparent;
+}
+
+.notifications.unread {
   background: azure;
 }
 
