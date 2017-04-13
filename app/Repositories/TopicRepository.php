@@ -12,8 +12,15 @@ namespace App\Repositories;
 use App\Topic;
 use Illuminate\Http\Request;
 
+/**
+ * Class TopicRepository
+ * @package App\Repositories
+ */
 class TopicRepository
 {
+    /**
+     * @var Topic
+     */
     protected $topic;
 
     /**
@@ -25,6 +32,10 @@ class TopicRepository
         $this->topic = $topic;
     }
 
+    /**
+     * @param Request $request
+     * @return mixed
+     */
     public function getTopicsForTagging(Request $request)
     {
         return $this->topic->select(['id','name'])

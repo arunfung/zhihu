@@ -6,8 +6,15 @@ use App\Repositories\MessageRepository;
 use Illuminate\Http\Request;
 use Auth;
 
+/**
+ * Class MessagesController
+ * @package App\Http\Controllers
+ */
 class MessagesController extends Controller
 {
+    /**
+     * @var MessageRepository
+     */
     protected $message;
 
     /**

@@ -78,9 +78,9 @@
                             avatar:Zhihu.avatar
                         },
                         body: response.data.body
-                    }
-                    this.comments.push(comment)
-                    this.body = ''
+                    };
+                    this.comments.push(comment);
+                    this.body = '';
                     this.total ++
                 })
             },

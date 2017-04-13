@@ -7,14 +7,30 @@ use Auth;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 
+/**
+ * Class FollowersController
+ * @package App\Http\Controllers
+ */
 class FollowersController extends Controller
 {
+    /**
+     * @var UserRepository
+     */
     protected $userRepository;
+
+    /**
+     * FollowersController constructor.
+     * @param UserRepository $userRepository
+     */
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index($id)
     {
         $user = $this->userRepository->byId($id);
@@ -27,6 +43,10 @@ class FollowersController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function follow(Request $request)
     {
         $userToFollow = $this->userRepository->byId(request('user'));

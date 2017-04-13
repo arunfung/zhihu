@@ -7,9 +7,21 @@ use App\Repositories\QuestionRepository;
 use Auth;
 use Illuminate\Http\Request;
 
+/**
+ * Class QuestionsController
+ * @package App\Http\Controllers
+ */
 class QuestionsController extends Controller
 {
+    /**
+     * @var QuestionRepository
+     */
     protected $questionRepository;
+
+    /**
+     * QuestionsController constructor.
+     * @param QuestionRepository $questionRepository
+     */
     function __construct(QuestionRepository $questionRepository)
     {
         $this->middleware('auth')->except(['index','show']);

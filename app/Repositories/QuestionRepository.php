@@ -48,7 +48,10 @@ class QuestionRepository
     }
 
 
-
+    /**
+     * @param array $attributes
+     * @return
+     */
     public function create(array $attributes)
     {
         return $this->question->create($attributes);
@@ -62,11 +65,18 @@ class QuestionRepository
         return $this->question->find($id);
     }
 
+    /**
+     * @return mixed
+     */
     public function getQuestionsFeed()
     {
         return $this->question->published()->latest('updated_at')->with('user')->get();
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function getQuestionCommentsById($id)
     {
         $question = $this->question->with('comments','comments.user')->where('id',$id)->first();
