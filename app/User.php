@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'avatar', 'confirmation_token', 'password', 'api_token'
+        'name', 'email', 'avatar', 'confirmation_token', 'password', 'api_token', 'settings'
     ];
 
     /**
@@ -28,6 +28,15 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    protected $casts = [
+        'settings' => 'array'
+    ];
+
+    public function settings()
+    {
+        return new Setting($this);
+    }
 
     /**
      * Send the password reset notification.

@@ -13,6 +13,14 @@ use Illuminate\Http\Request;
 class PasswordController extends Controller
 {
     /**
+     * PasswordController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function password(){

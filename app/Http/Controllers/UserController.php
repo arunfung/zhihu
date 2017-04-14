@@ -17,7 +17,7 @@ class UserController extends Controller
 
     public function avatar()
     {
-        return view('users.avatar');
+        return view('users.setting');
     }
 
     public function changeAvatar(Request $request)
