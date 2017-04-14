@@ -26,9 +26,12 @@ class UserController extends Controller
         $filename = md5(time().user()->id).'.'.$file->getClientOriginalExtension();
         $saveUrl = DIRECTORY_SEPARATOR . "uploads" . DIRECTORY_SEPARATOR . "avatars" . DIRECTORY_SEPARATOR.date('Y').DIRECTORY_SEPARATOR.date('m').DIRECTORY_SEPARATOR;
         $file->move(public_path($saveUrl),$filename);
-
+        $avatar = user()->avatar;
         user()->avatar = $saveUrl.$filename;
-        user()->save();
+        $result = user()->save();
+        if ($result){
+            @unlink (public_path($avatar));
+        }
         return ['url' => user()->avatar];
     }
 }
