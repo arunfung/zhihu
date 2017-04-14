@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="text-align: center">
         <my-upload field="img"
                    @crop-success="cropSuccess"
                    @crop-upload-success="cropUploadSuccess"
@@ -7,12 +7,12 @@
                    v-model="show"
                    :width="300"
                    :height="300"
-                   url="/upload"
+                   url="/avatar"
                    :params="params"
                    :headers="headers"
                    img-format="png"></my-upload>
-        <img width="80px" :src="imgDataUrl">
-        <a class="btn" @click="toggleShow">修改头像</a>
+        <img style="border-radius: 100%;" width="80px" :src="imgDataUrl">
+        <div style="margin-top: 20px"><button class="btn btn-default" @click="toggleShow">修改头像</button></div>
     </div>
 </template>
 <style>
@@ -27,8 +27,8 @@
             return {
                 show: false,
                 params: {
-                    token: '123456798',
-                    name: 'avatar'
+                    _token: Laravel.csrfToken,
+                    name: 'img'
                 },
                 headers: {
                     smail: '*_~'
@@ -59,10 +59,11 @@
              * [param] jsonData  server api return data, already json encode
              * [param] field
              */
-            cropUploadSuccess(jsonData, field){
-                console.log('-------- upload success --------');
-                console.log(jsonData);
-                console.log('field: ' + field);
+            cropUploadSuccess(response, field){
+//                console.log('-------- upload success --------');
+//                console.log(response);
+//                console.log('field: ' + field);
+                this.toggleShow();
             },
             /**
              * upload fail

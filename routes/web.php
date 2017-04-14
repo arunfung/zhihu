@@ -33,6 +33,7 @@ Route::get('notifications/{notification}','NotificationsController@show');
 
 
 Route::get('avatar','UserController@avatar');
+Route::post('avatar','UserController@changeAvatar');
 
 Route::get('inbox','InboxController@index');
 Route::get('inbox/{dialogId}','InboxController@show');

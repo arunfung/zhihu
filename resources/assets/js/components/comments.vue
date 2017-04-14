@@ -23,7 +23,7 @@
                             <div class="media"v-for="comment in comments">
                                 <div class="media-left">
                                     <a href="#">
-                                        <img width="24" class="media-object" :src="comment.user.avatar" alt="...">
+                                        <img width="36" class="media-object" :src="comment.user.avatar" alt="...">
                                     </a>
                                 </div>
                                 <div class="media-body">
@@ -37,7 +37,7 @@
                     <!-- Modal Actions -->
                     <div class="modal-footer">
                         <input type="text" class="form-control" v-model="body">
-                        <button type="button" class="btn btn-primary" @click="store">
+                        <button style="margin-top: 10px;" type="button" class="btn btn-primary" @click="store">
                             评论
                         </button>
                     </div>

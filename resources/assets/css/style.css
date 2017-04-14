@@ -1,6 +1,9 @@
 .panel-body.content img {
     width: 100%;
 }
+.media-left img{
+    border-radius: 100%;
+}
 
 a.topic {
     background: #eff6fa;
