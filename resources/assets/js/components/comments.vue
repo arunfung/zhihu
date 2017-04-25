@@ -28,7 +28,7 @@
                                 </div>
                                 <div class="media-body">
                                     <h4 class="media-heading">{{comment.user.name}}</h4>
-                                    {{comment.body}}
+                                    {{comment.body}}<span class="pull-right">{{comment.created_at}}</span>
                                 </div>
                             </div>
                         </div>

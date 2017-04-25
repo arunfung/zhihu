@@ -40,6 +40,16 @@
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
+                    <!-- Branding Image -->
+                    <a class="navbar-brand" href="https://www.zhihu.com/" style="color: red">
+                        本网站属于个人开发者测试，如需使用知乎请前往知乎官网体验，点击前往
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <nav class="navbar navbar-default navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
 
                     <!-- Collapsed Hamburger -->
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
