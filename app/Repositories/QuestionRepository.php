@@ -70,7 +70,7 @@ class QuestionRepository
      */
     public function getQuestionsFeed()
     {
-        return $this->question->published()->latest('updated_at')->with('user')->get();
+        return $this->question->published()->latest('updated_at')->with('user')->paginate(10);
     }
 
     /**

@@ -20,6 +20,11 @@
                         </div>
                     </div>
                 @endforeach
+                    <div class="media-bottom">
+                        <div class="page-box">
+                            {!! $questions->render() !!}
+                        </div>
+                    </div>
             </div>
         </div>
     </div>
