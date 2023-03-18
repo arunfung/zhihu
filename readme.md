@@ -1,3 +1,4 @@
+## 仿知乎站点，用户可以发布问题，提交回答，发表评论，点赞评论等，用户之间可以相互关注，发送私信等
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">
